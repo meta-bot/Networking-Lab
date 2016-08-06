@@ -24,8 +24,8 @@ public class Server {
     private PrintWriter dOut;
     private String dataFromClient;
     private String dataToClient;
-    private Integer prevTrans;
-    private Integer balance;
+    private int prevTrans;
+    private int balance;
     
     Server() throws IOException{
         server = new ServerSocket(8080);
@@ -48,11 +48,11 @@ public class Server {
                     if(dataFromClient.equals("DONE"))break;
                     System.out.println("Client given: "+dataFromClient);
 
-                    Integer amount = Integer.parseInt(dataFromClient);
-
+                    int amount = (int)Integer.parseInt(dataFromClient);
+                    System.out.println("Amount is : "+amount);
                     if(amount < 0)dOut.println("Sorry Invalid Input. DGM");
                     else if(amount > balance)dOut.println("Exceed your balance. DGM");
-                    else if(amount <= balance && amount != prevTrans){
+                    else if(amount <= balance && amount !=prevTrans){
                         balance -= amount;
                         prevTrans = amount;
                         dOut.println("your current balance is " + new Integer(balance).toString());

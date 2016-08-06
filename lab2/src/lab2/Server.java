@@ -19,7 +19,7 @@ import java.util.logging.Logger;
  * @author anando
  */
 public class Server {
-    private String searchString;
+    private int searchString;
     private StringBuilder foundAt;
     private Socket socket;
     private ServerSocket server;
@@ -46,16 +46,15 @@ public class Server {
     */
     
     class A extends Thread{
-        private String [] arr;
+        private int [] arr;
         public boolean nowStop;
         A(){
-            arr = new String[5];
-            for(int i=1;i<=5;i++)arr[i-1] = String.valueOf(i);
+            arr = new int[5];
+            for(int i=1;i<=5;i++)arr[i-1] = (i);
             nowStop = false;
         }
-        @Override
         public void run(){
-            for(int i=0;i<5 && !nowStop;i++)if(searchString.equals(arr[i])){
+            for(int i=0;i<5 && !nowStop;i++)if(searchString==(arr[i])){
                 synchronized(foundAt){
                     if(nowStop)break;
                     foundAt.append("Found in A. position: ");
@@ -67,18 +66,18 @@ public class Server {
     }
     
     class B extends Thread{
-        private String [] arr;
+        private int [] arr;
         public boolean nowStop;
         B(){
-            arr = new String[5];
-            for(int i=1;i<=5;i++)arr[i-1] = String.valueOf(i+5);
+            arr = new int[5];
+            for(int i=1;i<=5;i++)arr[i-1] = (i+5);
             nowStop = false;
         }
         public void run(){
-            for(int i=0;i<5 && !nowStop;i++)if(searchString.equals(arr[i])){
+            for(int i=0;i<5 && !nowStop;i++)if(searchString==(arr[i])){
                 synchronized(foundAt){
                     if(nowStop)break;
-                    foundAt.append("Found in A. position: ");
+                    foundAt.append("Found in B. position: ");
                     foundAt.append(String.valueOf(i));
                     closeAllOther();
                 }
@@ -88,18 +87,18 @@ public class Server {
     
     
     class C extends Thread{
-        private String [] arr;
+        private int [] arr;
         public boolean nowStop;
         C(){
-            arr = new String[5];
-            for(int i=1;i<=5;i++)arr[i-1] = String.valueOf(i+10);
+            arr = new int[5];
+            for(int i=1;i<=5;i++)arr[i-1] = (i+10);
             nowStop = false;
         }
         public void run(){
-            for(int i=0;i<5 && !nowStop;i++)if(searchString.equals(arr[i])){
+            for(int i=0;i<5 && !nowStop;i++)if(searchString==(arr[i])){
                 synchronized(foundAt){
                     if(nowStop)break;
-                    foundAt.append("Found in A. position: ");
+                    foundAt.append("Found in C. position: ");
                     foundAt.append(String.valueOf(i));
                     closeAllOther();
                 }
@@ -109,18 +108,18 @@ public class Server {
     
     
     class D extends Thread{
-        private String [] arr;
+        private int [] arr;
         public boolean nowStop;
         D(){
-            arr = new String[5];
-            for(int i=1;i<=5;i++)arr[i-1] = String.valueOf(i+15);
+            arr = new int[5];
+            for(int i=1;i<=5;i++)arr[i-1] = (i+15);
             nowStop = false;
         }
         public void run(){
-            for(int i=0;i<5 && !nowStop;i++)if(searchString.equals(arr[i])){
+            for(int i=0;i<5 && !nowStop;i++)if(searchString==(arr[i])){
                 synchronized(foundAt){
                     if(nowStop)break;
-                    foundAt.append("Found in A. position: ");
+                    foundAt.append("Found in D. position: ");
                     foundAt.append(String.valueOf(i));
                     closeAllOther();
                 }
@@ -130,18 +129,18 @@ public class Server {
     
     
     class E extends Thread{
-        private String [] arr;
+        private int [] arr;
         public boolean nowStop;
         E(){
-            arr = new String[5];
-            for(int i=1;i<=5;i++)arr[i-1] = String.valueOf(i+20);
+            arr = new int[5];
+            for(int i=1;i<=5;i++)arr[i-1] = (i+20);
             nowStop = false;
         }
         public void run(){
-            for(int i=0;i<5 && !nowStop;i++)if(searchString.equals(arr[i])){
+            for(int i=0;i<5 && !nowStop;i++)if(searchString==(arr[i])){
                 synchronized(foundAt){
                     if(nowStop)break;
-                    foundAt.append("Found in A. position: ");
+                    foundAt.append("Found in E. position: ");
                     foundAt.append(String.valueOf(i));
                     closeAllOther();
                 }
@@ -172,8 +171,8 @@ public class Server {
                 System.out.println("Connection done");
                 
                 while(true){
-                    searchString = dIn.readLine();
-                    if(searchString.equals("DONE"))break;
+                    searchString = Integer.parseInt(dIn.readLine());
+                    if(searchString==-1)break;
                     
                     System.out.println("searching for : "+searchString);
                     foundAt = new StringBuilder();

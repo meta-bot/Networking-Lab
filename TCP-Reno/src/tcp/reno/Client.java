@@ -87,6 +87,7 @@ public class Client {
 
         BUFFERSIZE = Integer.parseInt(dIn.readLine());
         System.out.println("Buffer Size : " + BUFFERSIZE);
+        dOut.write(seqNumber + "\n"); dOut.flush();
 
         while (true) {
             for (int xx = 0; xx < cwSize && !fIn.isEOF() && packOnFly < cwSize; xx++) {
@@ -140,7 +141,8 @@ public class Client {
             if (timeExeed()) {
                 if (fIn.isEOF()) {
                     System.out.println("FIle End");
-                    System.exit(0);
+                    //System.exit(0);
+                    break;
                 }
                 System.out.println("TIMEOUT !!!!");
                 timeExeed = true;
